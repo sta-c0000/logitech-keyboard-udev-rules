@@ -1,0 +1,4 @@
+# Allow Logitech Unifying receiver (and connected HIDs) to wake PC from sleep (assumes BIOS settings allow USB wake)
+ACTION=="add", SUBSYSTEM=="usb", DRIVER=="usb", ATTR{idVendor}=="046d", ATTR{idProduct}=="c52b", ATTR{power/wakeup}="enabled"
+# Swap / invert FN functionality for the functions keys on Logitech keyboard
+ACTION=="change", SUBSYSTEM=="power_supply", ATTR{model_name}=="Wireless Touch Keyboard K400 Plus", ATTR{online}=="1", RUN+="/usr/bin/sh -c 'printf \"\20\1\11\24\0\0\0\" >/dev/$(ls /sys$1/device/hidraw)' fnswap %p"
